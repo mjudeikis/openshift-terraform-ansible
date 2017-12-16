@@ -1,9 +1,9 @@
 *.tfstate
 *.tfstate.*
+*/.tfstate
+*/.tfstate.*
 terraform.tfvars
-inventory
-rhel-sub-vars.yml
-*.bak
-use-*
-.idea
-*.iml
+ec2/credentials.tfvars
+ec2/.*
+gce/.*
+openstack/.*

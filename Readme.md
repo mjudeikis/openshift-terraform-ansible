@@ -1,3 +1,6 @@
+
+TODO: Update this as per fork: https://github.com/christian-posta/openshift-terraform-ansible
+
 # Automate installation of OpenShift 
 This repo contains [Ansible](http://docs.ansible.com) and [terraform](https://www.terraform.io) scripts for installing [openshift](https://enterprise.openshift.com) onto [OpenStack](http://www.redhat.com/en/insights/openstack) or AWS EC2.
 
