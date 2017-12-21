@@ -1,4 +1,5 @@
 aws_ami="ami-xxxx"
+subnet_id="subnet-xxxxx"
 security_group = "default"
 master_instance_type = "t2.medium"
 node_instance_type = "t2.medium"
