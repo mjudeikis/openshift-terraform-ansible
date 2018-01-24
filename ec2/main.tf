@@ -171,7 +171,7 @@ resource "aws_instance" "glusterfs_registry" {
     tags {
         Name = "${var.prefix}glusterfs_registry${count.index}${var.postfix}"
         sshUser = "root"
-        role = "glusterfs"
+        role = "glusterfs_registry"
     }
 	root_block_device = {
 		volume_type = "gp2"
