@@ -10,6 +10,7 @@ variable "ebs_root_block_size" {default = "50"}
 variable "aws_ami" {default = "ami-xxxx"}
 variable "num_nodes" { default = "2" }
 variable "num_glusterfs" { default = "3" }
+variable "num_glusterfs_registry" { default = "3" }
 variable "num_infra" { default = "1" }
 variable "num_masters" { default = "1" }
 variable "num_bastion" { default = "1" }
@@ -137,6 +138,38 @@ resource "aws_instance" "glusterfs" {
     key_name = "${var.keypair}"
     tags {
         Name = "${var.prefix}glusterfs${count.index}${var.postfix}"
+        sshUser = "root"
+        role = "glusterfs"
+    }
+	root_block_device = {
+		volume_type = "gp2"
+		volume_size = "${var.ebs_root_block_size}"
+	}
+    ebs_block_device {
+        device_name = "/dev/xvdc"
+        volume_type = "gp2"
+        volume_size = 100
+    }
+     ebs_block_device {
+        device_name = "/dev/xvdd"
+        volume_type = "gp2"
+        volume_size = 100
+    }
+    lifecycle {
+        ignore_changes = ["ebs_block_device"]
+    }
+}
+
+resource "aws_instance" "glusterfs_registry" {
+    count = "${var.num_glusterfs_registry}"
+    ami = "${var.aws_ami}"
+    instance_type = "${var.node_instance_type}"
+    availability_zone = "${var.aws_availability_zone}"
+    vpc_security_group_ids = ["${split(",",var.vpc_security_group_ids)}"]
+    subnet_id = "${var.subnet_id}"
+    key_name = "${var.keypair}"
+    tags {
+        Name = "${var.prefix}glusterfs_registry${count.index}${var.postfix}"
         sshUser = "root"
         role = "glusterfs"
     }
